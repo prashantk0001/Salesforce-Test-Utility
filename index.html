@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+		<head>
+			<script src="js/jquery.min.js"></script>
+			<script src="js/mustache.min.js"></script>
+			<script src="js/jquery.dataTables.min.js"></script>
+			<script src="js/jquery.blockUI.min.js"></script>
+			<script src="js/dataTables.bootstrap4.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+			<link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap4.min.css">
+
+			<style>
+				html {
+					display: block!important;
+					font-size: 12px;
+					max-height: 600px !important;
+					min-height: 400px !important;
+					width: 600px !important;
+					/*height: 600px !important;*/
+				}
+			</style>
+		</head>
+		<body style="background-color: #f8f9fa;">
+			<div class="container-fluid">
+					<div style="background-color: #f8f9fa;padding-top:20px;padding-bottom:20px;">
+						<h2 style="margin-bottom: 10px;">
+							Salesforce Test Class Utility
+						</h2>
+						<div  class="progress">
+							<div id="classProgress"  class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"  style="width:0%"></div>
+						</div>
+						<div style="padding-top:3px">
+							Org Wide Coverage: <span id="orgWideCoverage"></span>
+						</div>
+						<hr />
+					<div style="margin-top: 10px;">
+						<button class="btn btn-default btn-sm btn-dark" id="runAll">Run All Tests</button>
+						<button class="btn btn-default btn-sm btn-primary" id="getTestClasses">Run Specific Tests</button>
+						<button class="btn btn-default btn-sm btn-primary" id="coverage">Get Coverage</button>
+						<button class="btn btn-default btn-sm btn-primary" id="getTestResults">Get Test Error Report</button>
+						<button class="btn btn-default btn-sm btn-link" id="ApexTestQueuePage">Apex Test Execution</button>
+					</div>
+					<div id="acknowledgement" style="padding: 5px;margin-top: 8px;display:none;" class="alert alert-success" role="alert">
+						
+					</div>
+					<hr />
+					<div >
+						<div id="specificTests"></div>
+						<button class="btn btn-default btn-sm btn-primary" id="runSelected">Run Selected Tests</button>
+						
+						<div id="coverageDiv"></div>
+						<button class="btn btn-default btn-sm btn-primary" id="getCoverageReport">Get Coverage Report</button>
+						<hr />
+						
+						<div class="alert alert-danger" style="margin:5px;display:none;" id="compilationErrors"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Run All Tests</h5>
+							<button type="button" class="close closeRunAllModal" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p>Do you really want to run all Apex Tests?</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" id="confirmRunAll" class="btn btn-primary">Confirm</button>
+							<button type="button" class="btn btn-secondary closeRunAllModal" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</body>
+		<script type="text/html" id="table">
+			<table class="table table-condensed table-bordered table-striped table-hover table-sm">
+				<thead >
+					<tr>
+						{{#csvFields}}
+						<th>{{.}}</th>
+						{{/csvFields}}
+					</tr>
+				</thead>
+				<tbody>
+					{{#csvJSON}}
+					<tr>
+						<td>{{Name}}</td>
+						<td>{{Lines_Covered}}</td>
+						<td>{{Lines_Uncovered}}</td>
+						<td>{{Coverage}}</td>
+					</tr>
+					{{/csvJSON}}
+				</tbody>
+			</table>
+		</script>
+		
+		<script type="text/html" id="row">
+			<table class="table table-condensed table-bordered table-striped table-hover table-sm">
+				<thead>
+					<tr>
+						<th>Test Classes</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#.}}
+					<tr>
+						<td>
+							<input style="padding-top:4px;pointer-events:none;" type="checkbox" data-id="{{id}}"/>&nbsp;&nbsp;{{name}}
+						</td>
+					</tr>
+					{{/.}}
+				</tbody>
+			</table>
+		</script>
+		<script type="text/html" id="notcompiled">
+			<div style="width: 600px !important;">
+				<div class="row">
+					&nbsp;&nbsp;Compilation Failed:&nbsp;
+				</div>
+				{{#.}}
+				<div class="row">
+					<button class="btn btn-default btn-sm btn-link" data-id="{{id}}" >{{name}}</button>
+				</div>
+				{{/.}}
+			</div>
+		</script>
+		<script src="js/index.js"></script>
+		</html>

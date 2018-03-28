@@ -1,0 +1,16 @@
+{
+  "name": "Salesforce Test Class Utility",
+  "version": "0.1",
+  "description": "",
+  "manifest_version": 2,
+  "permissions": [ "activeTab", "tabs", "https://*.force.com/*", "https://*.salesforce.com/*"],
+  "author": "Prashant Kashyap",
+  "browser_action": {
+     "default_icon": "img/testing.png",
+     "default_popup": "index.html"
+  },
+  "content_scripts": [ {
+     "js": [  "js/main.js","js/FileSaver.min.js" ],
+     "matches": [ "https://*.salesforce.com/*", "https://*.force.com/*" ]
+  }]
+}

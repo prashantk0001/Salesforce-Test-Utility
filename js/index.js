@@ -246,7 +246,7 @@ function getTestAllClasses(records,testclasses,compilationErrors){
 	var current = {};
 	for(index in records){
 		current = {};
-		if(records[index].SymbolTable!=null&& records[index].IsValid==true && determineTestClass(records[index].SymbolTable.tableDeclaration.annotations)){
+		if(records[index].SymbolTable!=null && determineTestClass(records[index].SymbolTable.tableDeclaration.annotations)){
 			current.id = records[index].Id;
 			current.name = records[index].SymbolTable.name;
 			current.namespace = records[index].SymbolTable.namespace;

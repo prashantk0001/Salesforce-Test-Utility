@@ -1,4 +1,3 @@
-
 function getValueFromCookie(b) {
 	var a, c, d, e = document.cookie.split(";");
 	for (a = 0; a < e.length; a++)
@@ -235,7 +234,12 @@ function calculateCoverage(current){
 
 chrome.runtime.onMessage.addListener(
 	function(message, sender, sendResponse) {
-		executeMethod(message);
+		try{
+			executeMethod(message);
+		}catch(err){
+			console.error(error);
+		}
+
 	}
 );
 

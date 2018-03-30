@@ -8,6 +8,16 @@
 		opacity: .5, 
 		color: '#fff' 
 	};
+
+	var dataTableOptions = {
+		"bPaginate": true,
+		"bLengthChange": false,
+		"bFilter": true,
+		"bDestroy": true,
+		"bInfo": false,
+		"bAutoWidth": false,
+		"pageLength": 10,
+	}
 	
 	var coverageCSV;
 	var allowed = false;
@@ -165,15 +175,7 @@ function updateCoverage(message){
 	coverageCSV = message;
 	$('#specificTests').hide();
 	$('#runSelected').hide();
-	$("#coverageDiv table").DataTable({
-		"bPaginate": true,
-		"bLengthChange": false,
-		"bFilter": true,
-		"bDestroy": true,
-		"bInfo": false,
-		"bAutoWidth": false,
-		"pageLength": 10,
-	}); 
+	$("#coverageDiv table").DataTable(dataTableOptions); 
 	$('#coverageDiv').show();
 	$('#getCoverageReport').show();
 	$.unblockUI();
@@ -221,15 +223,7 @@ function processTestClasses(message){
 			selectedTests.push($(input).attr('data-id'));
 		}
 	});
-	$("#specificTests table").DataTable({
-		"bPaginate": true,
-		"bLengthChange": false,
-		"bFilter": true,
-		"bDestroy": true,
-		"bInfo": false,
-		"bAutoWidth": false,
-		"pageLength": 10,
-	});
+	$("#specificTests table").DataTable(dataTableOptions);
 	$('#coverageDiv').hide();
 	$('#getCoverageReport').hide();
 	$('#runSelected').show();

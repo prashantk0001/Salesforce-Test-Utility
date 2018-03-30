@@ -272,12 +272,13 @@ function createErrorCSVReport(testResults){
 		current.Method = testResults[data].MethodName;
 		current.Status = testResults[data].Outcome;
 		current.Stack_Trace = testResults[data].StackTrace.replace(',','  ');
-		current.Message = testResults[data].Message.replace(',','  ');;
+		current.Message = testResults[data].Message.replace(',','  ');
 		current.RunTime = testResults[data].RunTime;
 		csvJSON.push(current);
 	}
 	csvObj.csvFields = csvFields;
 	csvObj.csvJSON = csvJSON;
+	console.log(csvObj);
 	getCSV(csvObj,'ErrorReport');
 }
 
